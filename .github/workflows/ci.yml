@@ -13,7 +13,10 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt
-      - run: pytest -q
+      - name: Run tests
+        run: python -m pytest -q
+        env:
+          PYTHONPATH: .
   docker-build:
     runs-on: ubuntu-latest
     steps:
