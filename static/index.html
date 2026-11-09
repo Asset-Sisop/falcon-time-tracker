@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Falcon Time Tracker</title><link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+<header class="topbar"><div class="brand"><div class="logo">F</div><div><strong>Falcon Time Tracker</strong><span>Рабочее время без лишней рутины</span></div></div><span class="live"><i></i> Система активна</span></header>
+<main class="container">
+  <section class="intro"><div><p class="eyebrow">WORKSPACE / OVERVIEW</p><h1>Учёт рабочего времени</h1><p class="muted">Сотрудники, рабочие сессии и отчёты в одном пространстве.</p></div><button class="primary" id="addEmployeeBtn">＋ Добавить сотрудника</button></section>
+  <section class="stats">
+    <article class="stat"><span>Сотрудники</span><strong id="employeeCount">—</strong><small>В системе</small></article>
+    <article class="stat"><span>Активные таймеры</span><strong id="activeCount">—</strong><small>Сейчас работают</small></article>
+    <article class="stat"><span>Записи</span><strong id="sessionCount">—</strong><small>За выбранный период</small></article>
+  </section>
+  <section class="panel">
+    <div class="section-head"><div><h2>Команда</h2><p class="muted">Запускайте таймер для конкретного сотрудника</p></div></div>
+    <div id="employees" class="employee-grid"><div class="empty">Загрузка сотрудников…</div></div>
+  </section>
+  <section class="panel">
+    <div class="section-head"><div><h2>История работы</h2><p class="muted">Завершённые и текущие сессии</p></div>
+      <div class="filters"><label>С <input type="date" id="fromDate"></label><label>По <input type="date" id="toDate"></label><button class="secondary" id="filterBtn">Применить</button></div>
+    </div>
+    <div class="table-wrap"><table><thead><tr><th>Сотрудник</th><th>Задача</th><th>Начало</th><th>Окончание</th><th>Длительность</th><th>Статус</th></tr></thead><tbody id="sessionsBody"><tr><td colspan="6" class="empty">Загрузка…</td></tr></tbody></table></div>
+  </section>
+  <section class="panel">
+    <div class="section-head"><div><h2>Сводный отчёт</h2><p class="muted">Суммарное время по сотрудникам за период</p></div><button class="secondary" id="reportBtn">Обновить отчёт</button></div>
+    <div id="report" class="report-grid"><div class="empty">Выберите период и обновите отчёт.</div></div>
+  </section>
+  <footer>Falcon Time Tracker · Demo data only · Built with FastAPI & PostgreSQL</footer>
+</main>
+<dialog id="employeeDialog"><form method="dialog" id="employeeForm"><div class="modal-head"><h3>Новый сотрудник</h3><button class="icon-btn" value="cancel">×</button></div><label>Имя сотрудника<input id="employeeName" required minlength="2" maxlength="120" placeholder="Например, Анна Смирнова"></label><label>Email (необязательно)<input id="employeeEmail" type="email" placeholder="anna@example.test"></label><div class="modal-actions"><button class="secondary" value="cancel">Отмена</button><button class="primary" id="saveEmployee" value="default">Добавить</button></div></form></dialog>
+<dialog id="timerDialog"><form method="dialog" id="timerForm"><div class="modal-head"><h3 id="timerTitle">Новая рабочая сессия</h3><button class="icon-btn" value="cancel">×</button></div><input id="timerEmployeeId" type="hidden"><label>Задача<input id="taskName" required minlength="2" maxlength="200" placeholder="Например, Подготовка отчёта"></label><label>Описание<textarea id="taskDescription" rows="3" maxlength="2000" placeholder="Краткое описание задачи"></textarea></label><div class="modal-actions"><button class="secondary" value="cancel">Отмена</button><button class="primary" id="startTimer" value="default">Запустить таймер</button></div></form></dialog>
+<div id="toast" role="status" aria-live="polite"></div>
+<script src="/static/app.js"></script>
+</body></html>
